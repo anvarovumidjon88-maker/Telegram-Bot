@@ -49,32 +49,7 @@ QUESTIONS = {
          "a": "Qo'shtirnoq yoki tirnoq"},
         {"q": "Ro'yxat oxiriga element qo'shish funksiyasi qaysi?",
          "options": ["append()", "add()", "push()", "insert()"], "a": "append()"},
-        {"q": "Pythonda bir qatorli izoh qaysi belgi bilan boshlanadi?", "options": ["#", "//", "/*", "<!--"],
-         "a": "#"},
-        {"q": "Matn uzunligini o'lchaydigan funksiyani toping.", "options": ["len()", "length()", "size()", "count()"],
-         "a": "len()"}
-    ],
-    "C++": [
-        {"q": "C++ dasturlash tili kim tomonidan yaratilgan?",
-         "options": ["Bjarne Stroustrup", "Dennis Ritchie", "Linus Torvalds", "Guido van Rossum"],
-         "a": "Bjarne Stroustrup"},
-        {"q": "C++ dasturlarida konsolga chiqarish obyekti qaysi?", "options": ["cout", "cin", "print", "printf"],
-         "a": "cout"},
-        {"q": "Har bir C++ dasturi qaysi asosiy funksiyadan boshlanadi?",
-         "options": ["main()", "start()", "init()", "void()"], "a": "main()"},
-        {"q": "Siklni to'xtatish yoki undan chiqish uchun nima ishlatiladi?",
-         "options": ["break", "continue", "exit", "stop"], "a": "break"},
-        {"q": "C++ da har bir qator oxiriga qaysi belgi qo'yiladi?",
-         "options": ["; (Nuqtali vergul)", ": (Ikki nuqta)", ". (Nuqta)", ", (Vergul)"], "a": "; (Nuqtali vergul)"},
-        {"q": "Butun sonlarni e'lon qilish uchun qaysi kalit oo'z ishlatiladi?",
-         "options": ["int", "float", "double", "char"], "a": "int"},
-        {"q": "C++ fayllarining kengaytmasi qanday bo'ladi?", "options": [".cpp", ".c", ".cp", ".exe"], "a": ".cpp"},
-        {"q": "Faqat bitta belgini saqlashga mo'ljallangan ma'lumot turi?",
-         "options": ["char", "string", "int", "bool"], "a": "char"},
-        {"q": "Konsoldan ma'lumot kiritish (o'qish) obyekti qaysi?", "options": ["cin", "cout", "scanf", "input"],
-         "a": "cin"},
-        {"q": "C++ da bir qatorli izoh qanday yoziladi?",
-         "options": ["// izoh", "# izoh", "/* izoh */", "<!-- izoh -->"], "a": "// izoh"}
+        {"q": "Pythonda bir qatorli izoh qaysi belgi bilan boshlanadi?", "options": ["#", "//", "/*", ""], "a": "// izoh"}
     ],
     "HTML+CSS": [
         {"q": "HTML qisqartmasining kengaytmasi nima?",
@@ -105,7 +80,7 @@ QUESTIONS = {
         {"q": "Brauzer konsoliga ma'lumot chiqarish buyrug'i qaysi?",
          "options": ["console.log()", "print()", "document.write()", "alert()"], "a": "console.log()"},
         {"q": "JS da bir qatorli izoh qanday yoziladi?",
-         "options": ["// izoh", "# izoh", "<!-- izoh -->", "/* izoh */"], "a": "// izoh"},
+         "options": ["// izoh", "# izoh", "", "/* izoh */"], "a": "// izoh"},
         {"q": "JS fayllari qaysi kengaytmada saqlanadi?", "options": [".js", ".javascript", ".jsc", ".script"],
          "a": ".js"},
         {"q": "Massivning (array) uzunligini bilish uchun qaysi xususiyat ishlatiladi?",
@@ -145,7 +120,7 @@ QUESTIONS = {
          "options": [".jsx / .tsx", ".html", ".css", ".py"], "a": ".jsx / .tsx"}
     ],
     "PHP": [
-        {"q": "PHP kodlari qayerda (qaysi tomonda) bajariladi?",
+        {"q": "PHP kodlari qayerda (qaysi tomonda) bajairiladi?",
          "options": ["Server tomonida (Backend)", "Brauzerda (Frontend)", "Faqat foydalanuvchi kompyuterida",
                      "Ma'lumotlar bazasida"], "a": "Server tomonida (Backend)"},
         {"q": "PHP da barcha o'zgaruvchilar qaysi belgi bilan boshlanadi?", "options": ["$", "@", "#", "&"], "a": "$"},
@@ -156,7 +131,7 @@ QUESTIONS = {
         {"q": "PHP da satrlarni birlashtirish (string concatenation) uchun qaysi belgi ishlatiladi?",
          "options": [". (nuqta)", "+ (plyus)", "& (ampersand)", ", (vergul)"], "a": ". (nuqta)"},
         {"q": "PHP kodlari qaysi maxsus teglar ichiga yoziladi?",
-         "options": ["<?php ... ?>", "<script> ... </script>", "<?php ... ?>", "<!--?php ... ?-->"],
+         "options": ["<?php ... ?>", "<script> ... </script>", "<?php ... ?>", ""],
          "a": "<?php ... ?>"},
         {"q": "PHP da qator oxiri qaysi belgi bilan tugaydi?", "options": [";", ":", ".", "->"], "a": ";"},
         {"q": "PHP dagi superglobal massivni toping.", "options": ["$_POST", "$POST", "$_VARIABLE", "$GLOBAL_ALL"],
@@ -170,12 +145,10 @@ QUESTIONS = {
     ]
 }
 
-
 # ================= FSM HOLATLAR =================
 class TestState(StatesGroup):
     taking_test = State()
     waiting_for_name = State()
-
 
 # ================= SERTIFIKAT YASASH FUNKSIYASI =================
 def generate_certificate(name: str, subject: str, percent: int, rank: int) -> BytesIO:
@@ -187,46 +160,44 @@ def generate_certificate(name: str, subject: str, percent: int, rank: int) -> By
     W, H = img.size
     draw = ImageDraw.Draw(img)
 
-    # 🌟 MAJBURIY KATTA O'LCHAMLAR (Piksellarda)
-    # Agar rasm o'ta katta bo'lsa, bu qiymatlarni yanada kattalashtirish mumkin
-    TITLE_SIZE = 120  # "SERTIFIKAT" yozuvi uchun
-    NAME_SIZE = 100  # Ism va Familiya uchun (ENG KATTA)
-    INFO_SIZE = 55  # Kurs va natijalar uchun
-    SUB_SIZE = 45  # Kirish matni va sana uchun
+    # 🌟 SHABLON UCHUN ENG OPTIMAL KATTA O'LCHAMLAR
+    NAME_SIZE = 75   # Ism va Familiya yirik ko'rinishi uchun
+    INFO_SIZE = 32   # Yo'nalish va natijalar uchun
+    SUB_SIZE = 28    # Kirish matni va sana uchun
+
+    # GitHub repository'ingizdagi aniq shrift fayli nomi
+    font_file = "RobotoMono-Italic-VariableFont_wght.ttf"
 
     try:
-        # Shriftni yuklashga urinish
-        font_title = ImageFont.truetype("font.ttf", TITLE_SIZE)
-        font_name = ImageFont.truetype("font.ttf", NAME_SIZE)
-        font_info = ImageFont.truetype("font.ttf", INFO_SIZE)
-        font_sub = ImageFont.truetype("font.ttf", SUB_SIZE)
+        # Shriftni yuklash
+        font_name = ImageFont.truetype(font_file, NAME_SIZE)
+        font_info = ImageFont.truetype(font_file, INFO_SIZE)
+        font_sub = ImageFont.truetype(font_file, SUB_SIZE)
     except IOError as e:
-        # ⚠️ Agar shrift yuklanmasa, terminalga xatolikni chiqaradi
-        print(f"\n[XATOLIK] 'font.ttf' faylini o'qib bo'lmadi! Xato: {e}")
-        print("[YORDAM] Shrift yuklanmagani uchun standart mayda font ishlayapti.\n")
-        font_title = font_name = font_info = font_sub = ImageFont.load_default()
+        print(f"\n[XATOLIK] '{font_file}' topilmadi! Xato: {e}")
+        font_name = font_info = font_sub = ImageFont.load_default()
 
-    # --- MATNLARNI JOYLASHUVINI TO'G'RILASH ---
+    # --- MATNLARNI JOYLASHUVINI TO'G'RILASH (Yozuvlar mayda bo'lib qolmaydi) ---
 
     # 1. Kirish matni
-    intro_text = "Ushbu sertifikat IT akademiyasi kursini muvaffaqiyatli tamomlagani uchun berildi:"
+    intro_text = "Ushbu sertifikat iT Live Akademiyasi kursini muvaffaqiyatli tamomlagani uchun berildi:"
     left, top, right, bottom = draw.textbbox((0, 0), intro_text, font=font_sub)
-    draw.text(((W - (right - left)) / 2, int(H * 0.38)), intro_text, fill=(70, 70, 70), font=font_sub)
+    draw.text(((W - (right - left)) / 2, int(H * 0.38)), intro_text, fill=(100, 100, 100), font=font_sub)
 
-    # 2. Ism va Familiya (Juda yirik va to'q ko'k rangda)
+    # 2. Ism va Familiya (Yirik va to'q ko'k rangda, o'rtada)
     name_text = name.title()
     left, top, right, bottom = draw.textbbox((0, 0), name_text, font=font_name)
-    draw.text(((W - (right - left)) / 2, int(H * 0.46)), name_text, fill=(20, 30, 50), font=font_name)
+    draw.text(((W - (right - left)) / 2, int(H * 0.45)), name_text, fill=(20, 30, 50), font=font_name)
 
     # 3. Fan va Natija ma'lumotlari
     info_text = f"Yo'nalish: {subject} Foundation   |   Natija: {percent}%   |   O'rin: {rank}-o'rin"
     left, top, right, bottom = draw.textbbox((0, 0), info_text, font=font_info)
-    draw.text(((W - (right - left)) / 2, int(H * 0.58)), info_text, fill=(30, 30, 30), font=font_info)
+    draw.text(((W - (right - left)) / 2, int(H * 0.58)), info_text, fill=(40, 40, 40), font=font_info)
 
     # 4. Sana
     date_text = f"Sana: {date.today().strftime('%d.%m.%Y')}"
     left, top, right, bottom = draw.textbbox((0, 0), date_text, font=font_sub)
-    draw.text(((W - (right - left)) / 2, int(H * 0.68)), date_text, fill=(90, 90, 90), font=font_sub)
+    draw.text(((W - (right - left)) / 2, int(H * 0.68)), date_text, fill=(120, 120, 120), font=font_sub)
 
     bio = BytesIO()
     bio.name = 'certificate.png'
@@ -234,18 +205,14 @@ def generate_certificate(name: str, subject: str, percent: int, rank: int) -> By
     bio.seek(0)
     return bio
 
-
 # ================= BOT VA DISPATCHER =================
 bot = Bot(token=BOT_TOKEN)
 dp = Dispatcher()
-
 
 # ================= HANDLERLAR =================
 
 @dp.message(Command("start"))
 async def cmd_start(message: types.Message, state: FSMContext):
-    # KUNLIK TAQIQ LOGIKASI BU YERDAN TO'LIQ OLIB TASHLANDI 🚀
-
     kb = InlineKeyboardMarkup(inline_keyboard=[
         [InlineKeyboardButton(text="🐍 Python", callback_data="subject_Python"),
          InlineKeyboardButton(text="⚙️ C++", callback_data="subject_C++")],
@@ -258,7 +225,6 @@ async def cmd_start(message: types.Message, state: FSMContext):
     await message.answer("🎯 <b>Smart Test & Sertifikat Botiga xush kelibsiz!</b>\n\n"
                          "Test 10 ta savoldan iborat. Sertifikat olish uchun kamida 50% natija ko'rsatishingiz kerak.\n\n"
                          "Boshlash uchun fanlardan birini tanlang:", reply_markup=kb, parse_mode="HTML")
-
 
 @dp.callback_query(F.data.startswith("subject_"))
 async def start_test(callback: types.CallbackQuery, state: FSMContext):
@@ -278,7 +244,6 @@ async def start_test(callback: types.CallbackQuery, state: FSMContext):
                                      parse_mode="HTML")
     await send_question(callback.message, state)
     await state.set_state(TestState.taking_test)
-
 
 async def send_question(message: types.Message, state: FSMContext):
     data = await state.get_data()
@@ -301,7 +266,6 @@ async def send_question(message: types.Message, state: FSMContext):
     await message.answer(f"❓ <b>Savol {q_index + 1}/10:</b>\n\n{question_data['q']}", reply_markup=kb,
                          parse_mode="HTML")
 
-
 @dp.callback_query(TestState.taking_test, F.data.startswith("ans_"))
 async def check_answer(callback: types.CallbackQuery, state: FSMContext):
     data = await state.get_data()
@@ -317,7 +281,6 @@ async def check_answer(callback: types.CallbackQuery, state: FSMContext):
     await callback.message.delete()
     await state.update_data(current_q_index=q_index + 1)
     await send_question(callback.message, state)
-
 
 async def finish_test(message: types.Message, state: FSMContext):
     data = await state.get_data()
@@ -348,14 +311,13 @@ async def finish_test(message: types.Message, state: FSMContext):
     text = f"📊 <b>Test yakunlandi!</b>\n\nFan: {subject}\nTo'g'ri javoblar: {score}/10\nNatija: {percent}%\n\n"
 
     if rank:
-        text += f"🎉 Ajoyib! Siz TOP-5 likka kirib, <b>{rank}-o'rinni</b> egalladirgiz.\n\nSertifikatingizga yoziladigan ism-familiyangizni yozib yuboring:"
+        text += f"🎉 Ajoyib! Siz TOP-5 likka kirib, <b>{rank}-o'rinni</b> egalladingiz.\n\nSertifikatingizga yoziladigan ism-familiyangizni yozib yuboring:"
         await message.answer(text, parse_mode="HTML")
         await state.set_state(TestState.waiting_for_name)
     else:
         text += "😔 Sertifikat olish uchun kamida 50% natija kerak edi. Xafa bo'lish yo'q, bilimlaringizni oshirib qaytadan urinib ko'ring!"
         await message.answer(text, parse_mode="HTML")
         await state.clear()
-
 
 @dp.message(TestState.waiting_for_name)
 async def get_name_and_send_cert(message: types.Message, state: FSMContext):
@@ -382,7 +344,6 @@ async def get_name_and_send_cert(message: types.Message, state: FSMContext):
     conn.commit()
     await state.clear()
 
-
 @dp.message(Command("leaderboard"))
 async def cmd_leaderboard(message: types.Message):
     cursor.execute(
@@ -400,11 +361,9 @@ async def cmd_leaderboard(message: types.Message):
 
     await message.answer(text, parse_mode="HTML")
 
-
 async def main():
     print("Bot muvaffaqiyatli ishga tushdi...")
     await dp.start_polling(bot)
-
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
