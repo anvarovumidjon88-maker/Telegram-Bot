@@ -166,7 +166,7 @@ def generate_certificate(name: str, subject: str, percent: int, rank: int) -> By
     SUB_SIZE = 28    # Kirish matni va sana uchun
 
     # GitHub repository'ingizdagi aniq shrift fayli nomi
-    font_file = "RobotoMono-Italic-VariableFont_wght.ttf"
+    font_file = "font.ttf"
 
     try:
         # Shriftni yuklash
